@@ -1,4 +1,4 @@
-# kubernetes
+# Kubernetes .. Sample deployment: loadbalancer and Webaplication
 Sample kubernets projects
 
 Start Minikube: minikube start 
