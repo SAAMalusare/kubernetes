@@ -1,0 +1,41 @@
+# https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.10/
+# https://www.youtube.com/watch?v=1xo-0gCVhTU&t=1534s
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloworldservice
+
+spec:
+  selector:
+    app: helloworld
+  
+  ports:
+    - protocol: "TCP"
+      port: 9292
+      targetPort: 80
+      nodePort: 30001
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld
+
+spec:
+  selector:
+      matchLabels:
+        app: helloworld
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: helloworld
+    spec:
+      containers:
+        - name: helloworld
+          image: tutum/hello-world
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
