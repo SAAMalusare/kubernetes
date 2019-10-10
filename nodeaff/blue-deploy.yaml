@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: blue
+  name: blue
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      run: blue
+  template:
+    metadata:
+      labels:
+        run: blue
+    spec:
+      affinity:
+       nodeAffinity:
+         requiredDuringSchedulingIgnoredDuringExecution:
+           nodeSelectorTerms:
+            - matchExpressions:
+                - key: color
+                  operator: In
+                  values:
+                   - blue
+      containers:
+      - image: nginx
+        imagePullPolicy: Always
+        name: blue
