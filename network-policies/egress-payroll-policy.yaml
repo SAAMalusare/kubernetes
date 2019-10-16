@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+  name: internal-policy
+spec:
+  ingress:
+   - {}
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          name: payroll
+    ports:
+    - port: 8080
+      protocol: TCP
+
+  - to:
+    - podSelector:
+        matchLabels:
+          name: mysql
+    ports:
+     - port: 3306
+       protocol: TCP
+
+  podSelector:
+    matchLabels:
+      name: payroll
+  policyTypes:
+  - Ingress
+  - Egress
