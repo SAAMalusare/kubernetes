@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+  creationTimestamp: 2019-10-16T11:51:02Z
+  generation: 1
+  name: payroll-policy
+  namespace: default
+  resourceVersion: "2132"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/networkpolicies/payroll-policy
+  uid: 3a29f1ad-f00b-11e9-b0a2-0242ac11001f
+spec:
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          name: internal
+    ports:
+    - port: 8080
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      name: payroll
+  policyTypes:
+  - Ingress
