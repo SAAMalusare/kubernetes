@@ -11,9 +11,10 @@ spec:
     image: kodekloud/event-simulator
     name: event-simulator
     volumeMounts:
-      - mountPath: /log
-        name: webapp
+    - mountPath: /log
+      name: webapp-log
   volumes:
-  - name: webapp
+  - name: webapp-log
     hostPath:
-      path: /var/log/webapp
+       path: /var/log/webapp
+       type: Directory
