@@ -1,0 +1,30 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: mysql
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: mysql
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: mysql
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: secret:mysql-pass
+        image: mysql:5.7
+        volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: mysql-claim
+        name: mysql
+      volumes:
+        - name: mysql-claim
+          persistentVolumeClaim:
+             claimName: mysql-persistent-storage
