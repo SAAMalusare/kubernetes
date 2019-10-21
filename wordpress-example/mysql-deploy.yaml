@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   labels:
     run: mysql
+    tier: db
   name: mysql
 spec:
   replicas: 1
@@ -11,20 +12,22 @@ spec:
       run: mysql
   template:
     metadata:
-      creationTimestamp: null
       labels:
         run: mysql
     spec:
       containers:
       - env:
         - name: MYSQL_ROOT_PASSWORD
-          value: secret:mysql-pass
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
         image: mysql:5.7
-        volumeMounts:
-          - mountPath: /var/lib/mysql
-            name: mysql-claim
         name: mysql
+        volumeMounts:
+          - name: mysql-persistent-storage
+            mountPath: /var/lib/mysql
       volumes:
-        - name: mysql-claim
+        - name: mysql-persistent-storage
           persistentVolumeClaim:
-             claimName: mysql-persistent-storage
+            claimName: mysql-persistent-storage

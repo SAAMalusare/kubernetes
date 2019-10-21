@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    run: wordpress
+    tier: app
+  name: wordpress
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+    nodePort: 31004
+  selector:
+    run: wordpress
+  type: NodePort
+status:
+  loadBalancer: {}
