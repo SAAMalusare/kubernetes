@@ -1,25 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: 2019-11-20T11:17:05Z
   labels:
     run: nodeapp
   name: nodeapp-lb-service
-  namespace: default
-  resourceVersion: "3221"
-  selfLink: /api/v1/namespaces/default/services/nodeapp-lb-service
-  uid: 487c082d-0b87-11ea-b0ca-0242ac110044
 spec:
-  clusterIP: 10.100.157.31
-  externalTrafficPolicy: Cluster
   ports:
-  - nodePort: 31199
-    port: 8080
-    protocol: TCP
-    targetPort: 8080
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
   selector:
     run: nodeapp
-  sessionAffinity: None
+    ver: "v1" # For Blue
+  #    ver: "v2"     # For green
   type: LoadBalancer
-status:
-  loadBalancer: {}
