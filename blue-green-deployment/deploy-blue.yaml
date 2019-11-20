@@ -1,21 +1,63 @@
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: nodeapp
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: 2019-11-20T10:59:08Z
+  generation: 1
   labels:
-    app: webapp
-    version: "v1"
+    run: nodeapp
+  name: nodeapp
+  namespace: default
+  resourceVersion: "1859"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/nodeapp
+  uid: c68fdcc8-0b84-11ea-b0ca-0242ac110044
 spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: myapp
+      run: nodeapp
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
+      creationTimestamp: null
       labels:
-        app: myapp
+        run: nodeapp
     spec:
       containers:
-        - name: myapp
-          image: suhasmalusare/nodeapp:01
-          ports:
-            - containerPort: 8080
+      - image: suhasmalusare/nodeapp:01
+        imagePullPolicy: IfNotPresent
+        name: nodeapp
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: 2019-11-20T10:59:39Z
+    lastUpdateTime: 2019-11-20T10:59:39Z
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: 2019-11-20T10:59:08Z
+    lastUpdateTime: 2019-11-20T10:59:39Z
+    message: ReplicaSet "nodeapp-57c8dddf6c" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
