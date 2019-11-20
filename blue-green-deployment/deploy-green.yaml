@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: nodeapp
+    ver: "v2"
+  name: nodeapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: nodeapp
+  template:
+    metadata:
+      labels:
+        run: nodeapp
+        ver: "v2"
+    spec:
+      containers:
+        - image: suhasmalusare/nodeapp:02
+          imagePullPolicy: IfNotPresent
+          name: nodeapp
