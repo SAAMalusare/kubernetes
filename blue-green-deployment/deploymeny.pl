@@ -5,6 +5,7 @@ use warnings;
 use Getopt::Long;
 use Net::Kubernetes;
 use LWP::Protocol;
+use Data::Dumper;
 
 my  $ver = '1.0';
 my  ($deployment, $version, $service);
@@ -18,5 +19,5 @@ print "============================================\n";
 my $kube = Net::Kubernetes->new(url=>'https://172.17.0.76:6443/');
 my $pod_list = $kube->list_pods();
 
-print  $pod_list; 
+print  Dumper \$pod_list; 
 
