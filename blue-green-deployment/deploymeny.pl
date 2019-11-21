@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Getopt::Long;
 use Net::Kubernetes;
+use LWP::Protocol;
 
 my  $ver = '1.0';
 my  ($deployment, $version, $service);
